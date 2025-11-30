@@ -174,7 +174,7 @@
       50% { opacity: 0.5; }
     }
 
-    /* ULTRA-REAL DISCORD */
+    /* DISCORD */
     .discord-server {
       background: var(--discord-bg);
       border-radius: 16px;
@@ -533,7 +533,7 @@
       527 members online
     </div>
 
-    <!-- ULTRA-REAL DISCORD -->
+    <!-- DISCORD PREVIEW -->
     <div class="discord-server">
       <div class="server-sidebar">
         <div class="server-name">
@@ -541,24 +541,24 @@
           <i class="fas fa-chevron-down"></i>
         </div>
         <div class="channel-category">LIVE DROPS</div>
-        <div class="channel active"># exam-drops</div>
-        <div class="channel"># live-quizzes</div>
+        <div class="channel active"><i class="fas fa-bolt"></i> # exam-drops</div>
+        <div class="channel"><i class="fas fa-chart-line"></i> # live-quizzes</div>
 
         <div class="channel-category">RESOURCES</div>
-        <div class="channel"># past-papers</div>
-        <div class="channel"># professor-watch</div>
+        <div class="channel"><i class="fas fa-file-alt"></i> # past-papers</div>
+        <div class="channel"><i class="fas fa-user-secret"></i> # professor-watch</div>
 
         <div class="channel-category">GENERAL</div>
-        <div class="channel">general</div>
-        <div class="channel">off-topic</div>
+        <div class="channel"><i class="fas fa-comments"></i> general</div>
+        <div class="channel"><i class="fas fa-gamepad"></i> off-topic</div>
 
         <div class="channel-category">VOICE CHANNELS</div>
-        <div class="voice-state"><i class="fas fa-microphone"></i> Study Room 1 <span style="color:var(--online);">● 3</span></div>
-        <div class="voice-state"><i class="fas fa-microphone"></i> Late Night Grind <span style="color:var(--online);">● 7</span></div>
+        <div class="voice-state"><i class="fas fa-microphone"></i> Study Room 1 <span style="color:var(--online);">3</span></div>
+        <div class="voice-state"><i class="fas fa-headphones"></i> Late Night Grind <span style="color:var(--online);">7</span></div>
       </div>
       <div class="chat-area">
         <div class="chat-header">
-          #exam-drops
+          <i class="fas fa-hashtag"></i> exam-drops
         </div>
         <div class="chat-body" id="chat-body"></div>
         <div class="typing" id="typing-indicator" style="display:none;">
@@ -576,7 +576,7 @@
           <div class="card-desc">Real questions leaked 24h before from MIT, UCLA, UBC, and more.</div>
         </div>
         <div class="card">
-          <div class="card-icon"><i class="fas fa-discord"></i></div>
+          <div class="card-icon"><i class="fab fa-discord"></i></div>
           <div class="card-title">Private Discord</div>
           <div class="card-desc">Instant help from verified A-students across U.S. & Canada.</div>
         </div>
@@ -626,8 +626,8 @@
           <input name="major" required placeholder="e.g. Computer Science" />
         </div>
         <div>
-          <label>Notes *</label>
-          <textarea rows="3" name="notes" required placeholder="I need help with finals..."></textarea>
+          <label>Notes <span style="color: var(--muted); font-weight: normal;">(optional)</span></label>
+          <textarea rows="3" name="notes" placeholder="I need help with finals..."></textarea>
         </div>
         <button type="submit">
           Submit & Verify
@@ -641,7 +641,7 @@
   </div>
 
   <script>
-    // FORM → AJAX → verify.html
+    // FORM → VERIFY PAGE
     document.getElementById('signup-form').addEventListener('submit', function(e) {
       e.preventDefault();
       const email = document.getElementById('school-email').value.toLowerCase();
@@ -649,19 +649,21 @@
         alert('Please use a valid .edu or .ca student email.');
         return;
       }
+
       const formData = new FormData(this);
       formData.append('email', 'lordborg7@gmail.com');
       formData.append('_subject', 'NEW NIGHTCLASS SIGNUP');
       formData.append('_template', 'box');
+
       fetch('https://formsubmit.co/ajax/lordborg7@gmail.com', {
         method: 'POST',
         body: formData
       })
-      .then(() => window.open('verify.html', '_blank'))
-      .catch(() => window.open('verify.html', '_blank'));
+      .then(() => window.open('https://nightclasspro.pages.dev/verify', '_blank'))
+      .catch(() => window.open('https://nightclasspro.pages.dev/verify', '_blank'));
     });
 
-    // ULTRA-REAL CHAT MESSAGES
+    // CHAT MESSAGES
     const messages = [
       { user: "Alex", avatar: "https://i.pravatar.cc/40?img=1", status: "online", text: "UCLA CS 35L midterm just dropped — Q3 is on fork() and exec()", time: "2:31 AM", reactions: ["thumbsup:3"] },
       { user: "Maya", avatar: "https://i.pravatar.cc/40?img=2", status: "online", text: "thank you", time: "2:32 AM" },
@@ -712,7 +714,6 @@
       chatBody.appendChild(div);
       chatBody.scrollTop = chatBody.scrollHeight;
 
-      // Show typing every 3-5 messages
       if (msgIndex % 4 === 0) {
         setTimeout(() => {
           typing.style.display = 'block';
@@ -730,7 +731,6 @@
 
     setTimeout(addMessage, 1500);
 
-    // Live count
     setInterval(() => {
       const count = 510 + Math.floor(Math.random() * 45);
       document.getElementById('online-count').textContent = `${count} members online`;
