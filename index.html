@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NightClass — Underground Academic Network</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    :root {
+      --bg: #0d1115;
+      --surface: #161b22;
+      --surface-2: #1a2028;
+      --border: #30363d;
+      --text: #f0f6fc;
+      --muted: #8b949e;
+      --accent: #58a6ff;
+      --accent-hover: #1f6feb;
+      --success: #238636;
+      --warning: #d29922;
+      --online: #3fb950;
+      --idle: #faa61a;
+      --dnd: #f04747;
+      --discord-bg: #2f3136;
+      --discord-sidebar: #202225;
+      --discord-channel: #36393f;
+      --discord-hover: #32353b;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    header {
+      padding: 50px 0;
+      text-align: center;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 38px;
+      font-weight: 700;
+      background: linear-gradient(135deg, #58a6ff, #8b5cf6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -1px;
+      text-shadow: 0 4px 20px rgba(88, 166, 255, 0.3);
+    }
+    .logo svg {
+      width: 48px;
+      height: 48px;
+      filter: drop-shadow(0 4px 12px rgba(88, 166, 255, 0.4));
+    }
+    .tag {
+      color: var(--muted);
+      font-size: 15px;
+      margin-top: 10px;
+      font-weight: 500;
+    }
+
+    .hero {
+      position: relative;
+      text-align: center;
+      margin: 50px 0;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+    .hero-img {
+      width: 100%;
+      height: 480px;
+      object-fit: cover;
+      filter: brightness(0.7);
+    }
+
+    .hero-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 50px 30px;
+      background: linear-gradient(to top, rgba(13,17,21,0.9), transparent);
+    }
+    .hero-title {
+      font-size: 38px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: white;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    }
+    .hero-desc {
+      font-size: 18px;
+      color: #c9d1d9;
+      max-width: 700px;
+      margin: 0 auto 28px;
+    }
+
+    .cta-btn {
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 15px 36px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 17px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 8px 20px rgba(88, 166, 255, 0.3);
+    }
+    .cta-btn:hover {
+      background: var(--accent-hover);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(88, 166, 255, 0.4);
+    }
+
+    .highlight-bar {
+      background: rgba(210, 153, 34, 0.15);
+      border: 1px solid var(--warning);
+      color: #f5d08a;
+      padding: 16px 20px;
+      border-radius: 14px;
+      font-weight: 600;
+      font-size: 15px;
+      text-align: center;
+      margin: 30px auto;
+      max-width: 780px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      box-shadow: 0 4px 15px rgba(210, 153, 34, 0.1);
+    }
+
+    .live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(63, 185, 80, 0.15);
+      color: var(--online);
+      padding: 8px 16px;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 600;
+      margin: 20px auto;
+      border: 1px solid rgba(63, 185, 80, 0.3);
+      box-shadow: 0 4px 12px rgba(63, 185, 80, 0.2);
+    }
+    .live-badge::before {
+      content: '';
+      width: 10px;
+      height: 10px;
+      background: var(--online);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    /* ULTRA-REAL DISCORD */
+    .discord-server {
+      background: var(--discord-bg);
+      border-radius: 16px;
+      overflow: hidden;
+      max-width: 900px;
+      margin: 50px auto;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 30px rgba(88, 166, 255, 0.1);
+      border: 1px solid #40444b;
+      display: flex;
+      height: 580px;
+      font-family: 'Whitney', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      position: relative;
+    }
+    .server-sidebar {
+      width: 240px;
+      background: var(--discord-sidebar);
+      padding: 16px 8px;
+      border-right: 1px solid #292b2f;
+    }
+    .server-name {
+      padding: 12px;
+      color: white;
+      font-weight: 600;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: 0.2s;
+    }
+    .server-name:hover {
+      background: var(--discord-hover);
+    }
+    .channel-category {
+      color: #8e9297;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      padding: 8px 12px 4px;
+      letter-spacing: 0.5px;
+    }
+    .channel {
+      padding: 6px 12px;
+      border-radius: 4px;
+      margin: 2px 8px;
+      color: #96989d;
+      font-size: 15px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: 0.2s;
+    }
+    .channel:hover, .channel.active {
+      background: var(--discord-hover);
+      color: #dcddde;
+    }
+    .channel i {
+      font-size: 16px;
+    }
+    .voice-state {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #b9bbbe;
+      font-size: 14px;
+      padding: 4px 12px;
+    }
+    .voice-state i {
+      color: var(--online);
+    }
+
+    .chat-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: #36393f;
+    }
+    .chat-header {
+      padding: 16px;
+      background: var(--discord-channel);
+      color: white;
+      font-weight: 600;
+      border-bottom: 1px solid #40444b;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 16px;
+      box-shadow: 0 1px 0 rgba(0,0,0,0.1);
+    }
+    .chat-body {
+      flex: 1;
+      padding: 16px;
+      overflow-y: auto;
+      background: #36393f;
+    }
+    .message {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 16px;
+      opacity: 0;
+      transform: translateY(8px);
+      animation: fadeIn 0.5s forwards;
+    }
+    @keyframes fadeIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      position: relative;
+      flex-shrink: 0;
+    }
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .status {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 12px;
+      height: 12px;
+      background: var(--online);
+      border: 3px solid #36393f;
+      border-radius: 50%;
+    }
+    .msg-content {
+      flex: 1;
+      min-width: 0;
+    }
+    .username {
+      font-weight: 600;
+      color: #fff;
+      font-size: 14.5px;
+    }
+    .timestamp {
+      color: #72767d;
+      font-size: 11px;
+      margin-left: 6px;
+    }
+    .msg-text {
+      color: #dcddde;
+      font-size: 15px;
+      margin-top: 2px;
+      line-height: 1.4;
+      word-wrap: break-word;
+    }
+    .reaction {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: #2f3136;
+      border: 1px solid #202225;
+      border-radius: 4px;
+      padding: 2px 6px;
+      font-size: 12px;
+      margin-top: 6px;
+      margin-right: 6px;
+    }
+    .file {
+      background: #2f3136;
+      border: 1px solid #202225;
+      border-radius: 6px;
+      padding: 8px;
+      margin-top: 6px;
+      font-size: 13px;
+      color: #00aff4;
+    }
+    .typing {
+      color: #72767d;
+      font-style: italic;
+      font-size: 14px;
+      margin: 8px 0;
+    }
+    .typing-dots {
+      display: inline-block;
+    }
+    .typing-dots span {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      background: #72767d;
+      border-radius: 50%;
+      margin: 0 1px;
+      animation: typing 1.4s infinite;
+    }
+    .typing-dots span:nth-child(1) { animation-delay: 0s; }
+    .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes typing {
+      0%, 60%, 100% { transform: translateY(0); }
+      30% { transform: translateY(-6px); }
+    }
+
+    section {
+      margin: 70px 0;
+      padding: 40px;
+      background: var(--surface);
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+    h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 30px;
+      margin-bottom: 20px;
+      color: white;
+    }
+
+    .grid {
+      display: grid;
+      gap: 18px;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+    .card {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px;
+      transition: all 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: var(--accent);
+      box-shadow: 0 12px 24px rgba(88, 166, 255, 0.15);
+    }
+    .card-icon {
+      width: 50px;
+      height: 50px;
+      background: rgba(88, 166, 255, 0.15);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      color: var(--accent);
+      font-size: 22px;
+    }
+    .card-title {
+      font-weight: 600;
+      font-size: 18px;
+      margin-bottom: 10px;
+      color: white;
+    }
+    .card-desc {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    #signup-form-section {
+      scroll-margin-top: 100px;
+    }
+    form {
+      display: grid;
+      gap: 20px;
+      margin-top: 28px;
+    }
+    label {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 8px;
+      display: block;
+      font-weight: 500;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 15px 18px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: white;
+      font-size: 15.5px;
+      transition: 0.2s;
+    }
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.2);
+    }
+    button {
+      margin-top: 16px;
+      padding: 16px;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 17px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    button:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 13.5px;
+      margin: 100px 0 50px;
+    }
+
+    @media (max-width: 768px) {
+      .hero-img { height: 360px; }
+      .discord-server { flex-direction: column; height: auto; }
+      .server-sidebar { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <div class="logo">
+        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="50" cy="50" r="45" stroke="url(#grad)" stroke-width="6" fill="none"/>
+          <path d="M30 45 L45 60 L70 35" stroke="url(#grad)" stroke-width="6" fill="none" stroke-linecap="round"/>
+          <defs>
+            <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#58a6ff"/>
+              <stop offset="100%" stop-color="#8b5cf6"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        NightClass
+      </div>
+      <div class="tag">Underground • Elite • U.S. & Canada Students Only</div>
+    </header>
+
+    <div class="hero">
+      <img class="hero-img" src="https://images.stockcake.com/public/e/f/8/ef82d15e-585c-4705-a32b-dff8c2c8e41d_large/focused-study-group-stockcake.jpg" alt="Students collaborating at night" />
+      <div class="hero-overlay">
+        <h1 class="hero-title">Join the Underground Network for Better Grades</h1>
+        <p class="hero-desc">Get real-time help on assignments, tests, and exams from top students in our free Discord community — designed to boost your grades with zero cost.</p>
+        <button class="cta-btn" onclick="document.getElementById('signup-form-section').scrollIntoView({behavior:'smooth'})">
+          Get Free Access
+        </button>
+      </div>
+    </div>
+
+    <div class="highlight-bar">
+      We drop live exam questions from top schools — 24 hours before the test.
+    </div>
+
+    <div class="live-badge" id="online-count">
+      527 members online
+    </div>
+
+    <!-- ULTRA-REAL DISCORD -->
+    <div class="discord-server">
+      <div class="server-sidebar">
+        <div class="server-name">
+          NightClass Elite
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="channel-category">LIVE DROPS</div>
+        <div class="channel active"># exam-drops</div>
+        <div class="channel"># live-quizzes</div>
+
+        <div class="channel-category">RESOURCES</div>
+        <div class="channel"># past-papers</div>
+        <div class="channel"># professor-watch</div>
+
+        <div class="channel-category">GENERAL</div>
+        <div class="channel">general</div>
+        <div class="channel">off-topic</div>
+
+        <div class="channel-category">VOICE CHANNELS</div>
+        <div class="voice-state"><i class="fas fa-microphone"></i> Study Room 1 <span style="color:var(--online);">● 3</span></div>
+        <div class="voice-state"><i class="fas fa-microphone"></i> Late Night Grind <span style="color:var(--online);">● 7</span></div>
+      </div>
+      <div class="chat-area">
+        <div class="chat-header">
+          #exam-drops
+        </div>
+        <div class="chat-body" id="chat-body"></div>
+        <div class="typing" id="typing-indicator" style="display:none;">
+          <span class="typing-dots"><span></span><span></span><span></span></span> Sarah is typing...
+        </div>
+      </div>
+    </div>
+
+    <section>
+      <h2>How It Works</h2>
+      <div class="grid">
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-bolt"></i></div>
+          <div class="card-title">Live Exam Drops</div>
+          <div class="card-desc">Real questions leaked 24h before from MIT, UCLA, UBC, and more.</div>
+        </div>
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-discord"></i></div>
+          <div class="card-title">Private Discord</div>
+          <div class="card-desc">Instant help from verified A-students across U.S. & Canada.</div>
+        </div>
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-search"></i></div>
+          <div class="card-title">Past Paper Vault</div>
+          <div class="card-desc">Access thousands of real exams, quizzes, and professor patterns.</div>
+        </div>
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-brain"></i></div>
+          <div class="card-title">Professor Intelligence</div>
+          <div class="card-desc">We analyze syllabi, trends, and history to predict what’s coming.</div>
+        </div>
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-clock"></i></div>
+          <div class="card-title">24/7 Support</div>
+          <div class="card-desc">Active at 3 AM. Always someone online to help.</div>
+        </div>
+        <div class="card">
+          <div class="card-icon"><i class="fas fa-gift"></i></div>
+          <div class="card-title">100% Free</div>
+          <div class="card-desc">No fees. No upsells. Just better grades.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="signup-form-section">
+      <h2>Get Your Invite</h2>
+      <p style="color: var(--muted); font-size: 16px; margin-bottom: 24px;">
+        <strong>Complete verification to receive your Discord invite.</strong>
+      </p>
+      <form id="signup-form">
+        <div>
+          <label>Full Name *</label>
+          <input name="name" required placeholder="John Doe" />
+        </div>
+        <div>
+          <label>Phone *</label>
+          <input name="phone" required placeholder="+1 555-555-5555" />
+        </div>
+        <div>
+          <label>School Email (.edu or .ca) *</label>
+          <input type="email" name="school_email" id="school-email" required placeholder="john@stanford.edu" />
+        </div>
+        <div>
+          <label>Major / Course *</label>
+          <input name="major" required placeholder="e.g. Computer Science" />
+        </div>
+        <div>
+          <label>Notes *</label>
+          <textarea rows="3" name="notes" required placeholder="I need help with finals..."></textarea>
+        </div>
+        <button type="submit">
+          Submit & Verify
+        </button>
+      </form>
+    </section>
+
+    <footer>
+      © 2025 NightClass — Underground Academic Network
+    </footer>
+  </div>
+
+  <script>
+    // FORM → AJAX → verify.html
+    document.getElementById('signup-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const email = document.getElementById('school-email').value.toLowerCase();
+      if (!email.endsWith('.edu') && !email.endsWith('.ca')) {
+        alert('Please use a valid .edu or .ca student email.');
+        return;
+      }
+      const formData = new FormData(this);
+      formData.append('email', 'lordborg7@gmail.com');
+      formData.append('_subject', 'NEW NIGHTCLASS SIGNUP');
+      formData.append('_template', 'box');
+      fetch('https://formsubmit.co/ajax/lordborg7@gmail.com', {
+        method: 'POST',
+        body: formData
+      })
+      .then(() => window.open('verify.html', '_blank'))
+      .catch(() => window.open('verify.html', '_blank'));
+    });
+
+    // ULTRA-REAL CHAT MESSAGES
+    const messages = [
+      { user: "Alex", avatar: "https://i.pravatar.cc/40?img=1", status: "online", text: "UCLA CS 35L midterm just dropped — Q3 is on fork() and exec()", time: "2:31 AM", reactions: ["thumbsup:3"] },
+      { user: "Maya", avatar: "https://i.pravatar.cc/40?img=2", status: "online", text: "thank you", time: "2:32 AM" },
+      { user: "Jordan", avatar: "https://i.pravatar.cc/40?img=3", status: "idle", text: "anyone got UBC PHYS 101 final?", time: "2:33 AM" },
+      { user: "Sarah", avatar: "https://i.pravatar.cc/40?img=4", status: "online", text: "uploading now...", time: "2:33 AM" },
+      { user: "Sarah", avatar: "https://i.pravatar.cc/40?img=4", status: "online", text: "PHYS101_Final.pdf", time: "2:34 AM", file: true },
+      { user: "ProfWatch", avatar: "https://i.pravatar.cc/40?img=5", status: "dnd", text: "MIT 6.006: Final on Dec 12, focus on DP and graphs", time: "2:34 AM", reactions: ["fire:2"] },
+      { user: "Liam", avatar: "https://i.pravatar.cc/40?img=6", status: "online", text: "just aced it thanks to this", time: "2:35 AM", reactions: ["heart:5"] },
+      { user: "Emma", avatar: "https://i.pravatar.cc/40?img=7", status: "online", text: "Stanford BIO 101 quiz tomorrow — anyone?", time: "2:36 AM" },
+      { user: "Noah", avatar: "https://i.pravatar.cc/40?img=8", status: "online", text: "on it", time: "2:36 AM" },
+      { user: "Noah", avatar: "https://i.pravatar.cc/40?img=8", status: "online", text: "BIO101_Quiz3.pdf", time: "2:37 AM", file: true },
+      { user: "Olivia", avatar: "https://i.pravatar.cc/40?img=9", status: "idle", text: "this server is a lifesaver", time: "2:38 AM", reactions: ["100:4"] },
+      { user: "Ethan", avatar: "https://i.pravatar.cc/40?img=10", status: "online", text: "Harvard ECON 101 — anyone got old finals?", time: "2:39 AM" },
+      { user: "Ava", avatar: "https://i.pravatar.cc/40?img=11", status: "online", text: "check #past-papers", time: "2:39 AM" },
+    ];
+
+    let msgIndex = 0;
+    const chatBody = document.getElementById('chat-body');
+    const typing = document.getElementById('typing-indicator');
+
+    function addMessage() {
+      if (msgIndex >= messages.length) return;
+      const msg = messages[msgIndex++];
+
+      const div = document.createElement('div');
+      div.className = 'message';
+
+      let reactions = '';
+      if (msg.reactions) {
+        reactions = msg.reactions.map(r => {
+          const [emoji, count] = r.split(':');
+          return `<div class="reaction">${emoji} ${count}</div>`;
+        }).join('');
+      }
+
+      div.innerHTML = `
+        <div class="avatar">
+          <img src="${msg.avatar}" alt="${msg.user}">
+          <div class="status" style="background: var(--${msg.status})"></div>
+        </div>
+        <div class="msg-content">
+          <div><span class="username" style="color: ${getUserColor(msg.user)};">${msg.user}</span><span class="timestamp">${msg.time}</span></div>
+          ${msg.file ? `<div class="file"><i class="fas fa-file-pdf"></i> ${msg.text}</div>` : `<div class="msg-text">${msg.text}</div>`}
+          ${reactions ? `<div>${reactions}</div>` : ''}
+        </div>
+      `;
+
+      chatBody.appendChild(div);
+      chatBody.scrollTop = chatBody.scrollHeight;
+
+      // Show typing every 3-5 messages
+      if (msgIndex % 4 === 0) {
+        setTimeout(() => {
+          typing.style.display = 'block';
+          setTimeout(() => typing.style.display = 'none', 3000);
+        }, 2000);
+      }
+
+      setTimeout(addMessage, 3000 + Math.random() * 5000);
+    }
+
+    function getUserColor(name) {
+      const colors = ['#43b581', '#f47b67', '#7289da', '#faa61a', '#8b5cf6', '#00aff4', '#ff73fa'];
+      return colors[name.charCodeAt(0) % colors.length];
+    }
+
+    setTimeout(addMessage, 1500);
+
+    // Live count
+    setInterval(() => {
+      const count = 510 + Math.floor(Math.random() * 45);
+      document.getElementById('online-count').textContent = `${count} members online`;
+    }, 12000);
+  </script>
+
+</body>
+</html>
