@@ -641,7 +641,7 @@
   </div>
 
   <script>
-    // FORM → VERIFY PAGE
+    // SUBMIT → GO TO VERIFY PAGE (SAME TAB)
     document.getElementById('signup-form').addEventListener('submit', function(e) {
       e.preventDefault();
       const email = document.getElementById('school-email').value.toLowerCase();
@@ -659,11 +659,16 @@
         method: 'POST',
         body: formData
       })
-      .then(() => window.open('https://nightclasspro.pages.dev/verify', '_blank'))
-      .catch(() => window.open('https://nightclasspro.pages.dev/verify', '_blank'));
+      .then(() => {
+        window.location.href = '/verify.html'; // SAME TAB
+      })
+      .catch(() => {
+        alert('Error. Opening verify page...');
+        window.location.href = '/verify.html';
+      });
     });
 
-    // CHAT MESSAGES
+    // CHAT ANIMATION (FIXED)
     const messages = [
       { user: "Alex", avatar: "https://i.pravatar.cc/40?img=1", status: "online", text: "UCLA CS 35L midterm just dropped — Q3 is on fork() and exec()", time: "2:31 AM", reactions: ["thumbsup:3"] },
       { user: "Maya", avatar: "https://i.pravatar.cc/40?img=2", status: "online", text: "thank you", time: "2:32 AM" },
