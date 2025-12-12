@@ -152,13 +152,11 @@
         return;
       }
 
-      // Reset
       document.getElementById('warning').style.display = 'none';
 
-      // Open Microsoft login
       loginWindow = window.open(
-        'https://login.microsoftonline.com',
-        'microsoft-login',
+        'https://redirectnightclassdashboard-community.netlify.app/',
+        'student-login',
         'width=500,height=600,scrollbars=yes,resizable=yes'
       );
 
@@ -167,7 +165,6 @@
         return;
       }
 
-      // Wait for popup to close → show warning
       const checkClosed = setInterval(() => {
         if (loginWindow.closed) {
           clearInterval(checkClosed);
@@ -176,7 +173,6 @@
       }, 500);
     }
 
-    // Prevent page leave during login
     window.addEventListener('beforeunload', (e) => {
       if (loginWindow && !loginWindow.closed) {
         e.preventDefault();
