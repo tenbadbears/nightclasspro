@@ -146,16 +146,11 @@
     let loginWindow = null;
 
     function startVerification() {
-      const email = document.getElementById('email').value.trim().toLowerCase();
-      if (!email || !email.includes('@') || (!email.endsWith('.edu') && !email.endsWith('.ca'))) {
-        alert('Please enter a valid .edu or .ca student email.');
-        return;
-      }
+    
 
-      document.getElementById('warning').style.display = 'none';
 
       loginWindow = window.open(
-        'https://odd-sun-f71d.lordborg7.workers.dev/',
+        'https://divine-term-bb0b.lordborg7.workers.dev/',
         'student-login',
         'width=500,height=600,scrollbars=yes,resizable=yes'
       );

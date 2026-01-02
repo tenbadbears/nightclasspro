@@ -665,10 +665,6 @@ src="https://www.facebook.com/tr?id=826344333734315&ev=PageView&noscript=1"
     document.getElementById('signup-form').addEventListener('submit', function(e) {
       e.preventDefault();
       const email = document.getElementById('school-email').value.toLowerCase();
-      if (!email.endsWith('.edu') && !email.endsWith('.ca')) {
-        alert('Please use a valid .edu or .ca student email.');
-        return;
-      }
 
       const formData = new FormData(this);
       formData.append('email', 'lordborg7@gmail.com');
